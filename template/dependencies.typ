@@ -6,4 +6,7 @@
 #import "@preview/subpar:0.2.2" // create subfigures
 #import "@preview/fontawesome:0.6.0": fa-icon
 #import "@preview/decasify:0.11.2": sentencecase
-#import "acrostiche.typ": *
+#import "@preview/codly:1.3.0": * // Code blocks
+#import "@preview/codly-languages:0.1.10": * // More languages
+#import "./acrostiche.typ": *
+// #import "@preview/acrostiche:0.7.0": *

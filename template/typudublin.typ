@@ -15,7 +15,7 @@
   introduction: none,
   description: none,
   declaration-signature: "../figures/signature.svg",
-  show-declaration: false,
+  show-declaration: true,
   keywords: (),
   abbreviations: (),
   abbr-title: "List of Abbreviations",
@@ -64,6 +64,10 @@
     description: description,
     keywords: keywords,
   )
+
+  // Init Codly
+  show: codly-init.with()
+  codly(languages: codly-languages)
 
   set text(lang: lang, font: font)
   show math.equation: set text(font: math-font)
@@ -374,7 +378,7 @@
 
   if type(bib) == content {
     bib
-  } else if bib != none {
+  } else {
     bibliography(bib, title: bib-title)
   }
 
@@ -392,7 +396,6 @@
   }
 
   if abbreviations.len() > 0 {
-    init-acronyms(abbreviations)
     // Acronyms
     print-index(
       sorted: "up",

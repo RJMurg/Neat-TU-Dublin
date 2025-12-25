@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2025 Angelo Nazzaro
+Copyright (c) 2025 Ruán Murgatroyd, derived from Angelo Nazzaro
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

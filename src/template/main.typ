@@ -1,64 +1,74 @@
-#import "@preview/typxidian:1.1.1": *
+// #import "@preview/typudublin:1.0.0": *
+#import "../typudublin.typ": *
 #import "abbreviations.typ": abbreviations
 
 #show: template.with(
-  title: [TypXidian],
-  subtitle: [A template for academic writing written in Typst],
-  department: [Department of Computer Science],
-  course: [Master of Science (Computer Science)],
-  university: [University of Salerno],
-  academic-year: [2024-2025],
+  title: [TypUDublin],
+  subtitle: [A Typst template for TU Dublin reports],
+  department: [School of Computer Science],
+  course-code: [TU123],
+  course: [BSc in Special Course],
+  university: [Technological University Dublin],
   authors: (
     (
-      name: "Mario Rossi",
-      email: "mario@rossi.it",
-      num: "Registration Number: XXXX",
+      name: "Max Mustermann",
+      num: "C12345678",
     ),
   ),
-  supervisors: ("Prof. Giuseppe Verdi", "Prof. Mario Bianchi"),
+  // This comma at the end is vital or it will not compile as it does not stay as an array
+  supervisors: ("Dr. Serious Person",),
+  declaration-signature: "./template/figures/signature.png",
   is-thesis: true,
-  thesis-type: [master thesis],
+  thesis-type: [Project Report],
   abbreviations: abbreviations,
-  abstract-alignment: center,
+  abstract-alignment: left,
   chapter-alignment: right,
   bib: bibliography("bibliography.bib"),
-  quote: quote(block: true, quotes: true, attribution: [Some wise guy], [#lorem(
-    25,
-  )]),
-  acknowledgments: [#lorem(50)],
-  acknowledgments-alignment: horizon + center,
   abstract: lorem(200),
-  logo-width: 50%,
+  acknowledgments: [#lorem(50)],
+  appendix-ai: (
+    report-writing: (
+      "No AI was used to create this template!",
+      "But you might use AI for yours."
+    ),
+    research: (),
+    design: (),
+    coding: (),
+    other: ()
+  )
 )
 
-= Welcome to TypXidian!
 
-*TypXidian* is a template for academic writing, thought for theses, disserations and reports.
-It has been developed to be customizable to make it adhere to your specific requirements with ease.
+= Welcome to TypUDublin!
+
+*TypUDublin* is a template for academic writing, designed for theses, dissertations, and reports at TU Dublin.
 
 #info(
   [
-    TypXidian is based, both on color palette and functionalities, on #link("https://obsidian.md")[Obsidian]
-    and "Alice in a Differentiable Wonderland" by Simone Scardapane @scardapane2024alicesadventuresdifferentiablewonderland.
-    A twin LaTeX version of TypXidian is available at: #link("https://github.com/robertodr01/LaXidiaN")[LaXidiaN].
+    TypUDublin is built from Angelo Nazzaro's #link("https://github.com/angelonazzaro/typxidian")[Typxidian] template@typxidian.
+    It draws its colour palette from TU Dublin's brand guidelines.
   ],
-  title: "About TypXidian",
+  title: "About TypUDublin",
 )
 
 The purpose of this document is to act both as a showcase and as documentation of the template.
 
 == Bundled Packages <sec:packages>
-TypXidian comes with the following packages pre-included:
+TypUDublin comes with the following packages pre-included:
 
 - `cetz:0.4.2`;
 - `cetz-plot:0.1.3`;
-- `plotsy-3d:0.2.1`;
 - `booktabs:0.0.4`;
 - `wrap-it:0.1.1`;
 - `subpar:0.2.2`;
 - `fontawesome:0.6.0`;
-- `decasify:0.10.1`;
-- a _custom_ version of `acrostiche:0.6.0`;
+- `decasify:0.11.3`;
+- `codly:1.3.0`;
+- `codly-languages:0.1.10`;
+- a custom local version of `acrostiche`.
+
+Optional dependency in `dependencies.typ`:
+- `plotsy-3d:0.2.1` (currently commented out).
 
 All functionalities can be accessed directly from the template.
 
@@ -75,7 +85,7 @@ All functionalities can be accessed directly from the template.
 The template separates each chapter (first level heading) with one or two blank pages. Each new chapter starts
 on an odd page. You may customize the 'Chapter' supplement by overwriting the `chapter-supplement` parameter.
 
-TypXidian offers two chapter heading styles: "basic" and "wonderland". You can set it by setting the `chapter-style` parameter. Below there is a comparison between the two styles:
+TypUDublin offers two chapter heading styles: "basic" and "wonderland". You can set it by setting the `chapter-style` parameter. Below there is a comparison between the two styles:
 #subfigure(
   columns: (1fr, 1fr),
 
@@ -97,7 +107,7 @@ TypXidian offers two chapter heading styles: "basic" and "wonderland". You can s
 )
 
 
-You can customize the alignment of first-level headings (including table of contents) through the `chapter-alignment` parameter. The abstract, introductiom and acknowledgment pages headings can be aligned through the `abstract-alignment` parameter.
+You can customize the alignment of first-level headings (including table of contents) through the `chapter-alignment` parameter. The abstract, introduction and acknowledgment page headings can be aligned through the `abstract-alignment` parameter.
 
 === Front Matter
 
@@ -105,10 +115,10 @@ This section is dedicated to explaining how to customize the front matter of the
 
 ==== Cover Page
 
-The cover page is highly customizable and it supports a: _authors-only_ view and _supervisors_ view.
+The cover page is highly customizable and supports an _authors-only_ view and a _supervisors_ view.
 
-The authors-only view is thought for reports, notes and similar documents, while the supervisor view
-should be used for more formal documents such as theses and disseratations. Both view are displayed in @fig:viewmodes.
+The authors-only view is designed for reports, notes and similar documents, while the supervisors view
+is intended for more formal documents such as theses and dissertations. Both views are displayed in @fig:viewmodes.
 
 #subfigure(
   columns: (1fr, 1fr),
@@ -123,7 +133,7 @@ should be used for more formal documents such as theses and disseratations. Both
   figure(
     block(
       stroke: 1pt + black,
-      image("./figures/authors-view.png"),
+      image("./figures/supervisors-view.png"),
     ),
     caption: [Supervisors view.],
   ),
@@ -131,29 +141,37 @@ should be used for more formal documents such as theses and disseratations. Both
   label: <fig:viewmodes>,
 )
 
-The authors-only view is triggered when the `supervisor` parameter is left empty. The `authors` parameter
+The authors-only view is triggered when the `supervisors` parameter is left empty. The `authors` parameter
 can be either an array of strings or an array of dictionaries. In the latter case, fields will be displayed in
 insertion order. Fields are discarded.
 #parbreak()
 Additional customization can be done via the following parameters:
-- `university`: name of the university;
-- `logo`: university logo (defaults to `src/preview/figures/logo.svg`);
-- `logo-width`: logo width (defaults to `110pt`);
-- `academic-year`: the academic year, e.g. *2024/2025* (defaults to `none`);
+- `university`: name of the university - Defaults to TU Dublin;
+- `logo`: university logo (defaults to `src/figures/logo.svg`);
+- `logo-width`: logo width (defaults to `150pt`);
 - `department`: the department name (defaults to `none`);
 - `course`: the course you are enlisted to (defaults to `none`);
-- `is-thesis`: if `true`, the “AUTHOR(S)” label changes to “CANDIDATE(S)” (defaults to `false`).
+- `course-code`: the CAO course code you are enlisted to (defaults to `none`);
+- `is-thesis`: if `true`, the thesis type is emphasized on the cover (defaults to `false`);
 - `thesis-type`: arbitrary string that will be displayed in uppercase above the title (defaults to `none`).
+
+==== Declaration
+
+Since most reports in TU Dublin require a declaration, the text has already been added.
+To sign this, you must populate the `declaration-signature` parameter.
+
+\
+The date under the signature and the cover page are filled by today's date automatically, but can be set through the `date` parameter.
 
 ==== Miscellaneous
 
-You can add additional content before the main body by passing the `abstract`, `citation`, `introduction` and
+You can add additional content before the main body by passing the `abstract`, `quote`, `introduction` and
 `acknowledgments` parameters. If populated, the template will add these pages _before_ the table of contents. The title alignment for these pages can be customized through the `abstract-alignment` parameter.
 
-Additionally, you can populate the `before-content` and `after-content` parameters to add _any_ additional
-content _before_ the abstract and _after_ the bibliography (e.g., declaration of originality for PhD theses or
-an appendix).
-
+Additionally, you can populate `before-content` and `after-content` to add _any_ additional
+content _before_ the abstract and _after_ the bibliography. For AI usage disclosure, use
+the `appendix-ai` template argument with the sections `report-writing`, `research`, `design`, `coding`, and `other`.
+#pagebreak()
 
 === Fonts
 
@@ -184,31 +202,32 @@ a figure under the first chapter will be numbered as 'Figure 1.x' and so on. The
 
 The table of contents contains dynamic list of figures, tables, definitions and theorems meaning that they will be
 rendered only if there is at least one element.
+#pagebreak()
 
 = Custom Environments
 
 #tip(
   [
-    All custom environments listed in this chapter are referencable like any other figure enviorment.
+    All custom environments listed in this chapter are referenceable like any other figure environment.
   ],
   title: "Referencing",
 )
 
 == SubFigures
 
-TypXidian uses the `subpar` package (@sec:packages). To ensure consistent numbering of subfigures,
+TypUDublin uses the `subpar` package (@sec:packages). To ensure consistent numbering of subfigures,
 you must use the `subfigure(...args)` function. Its use is the same as `subpar.grid()`. For instance,
 the following code:
 ```typ
 #subfigure(
   columns: (1fr, 2fr),
   figure(
-    image("assets/dog.jpg"),
+    image("./figures/dog.jpg"),
     caption: [This is a dog.]
   ),
   <dog>,
   figure(
-    image("assets/cat.jpg"),
+    image("./figures/cat.jpg"),
     caption: [This is a cat.]
   ),
   <cat>,
@@ -234,8 +253,53 @@ will output the following subfigure:
   label: <fig:example>,
 )
 
+== Wide Tables
+
+Use `widetable(..args)` for full-width styled tables. It wraps `table` and adds a final spanning row so the table reliably occupies the full text width.
+
+Typst tables do not fill the width of the page by default. The `widetable()` method can be used for pre-styled tables that take up the full width of the page and alternate highlighted rows for easier visibility.
+
+```typ
+#figure(
+  widetable(
+    columns: (1fr, 2fr, 1fr),
+    table.header([Component], [Purpose], [Source]),
+    [Cover page], [Generates the title page layout], [pages/cover.typ],
+    [Table of contents], [Renders TOC entries up to depth 3], [pages/toc.typ],
+    [AI appendix], [Prints grouped AI prompt disclosures], [pages/appendixAi.typ],
+  ),
+  caption: [Example wide table in TypUDublin.],
+  kind: table,
+  supplement: [Table],
+)
+```
+
+#figure(
+  widetable(
+    columns: (1fr, 2fr, 1fr),
+    table.header([Component], [Purpose], [Source]),
+    [Cover page], [Generates the title page layout], [pages/cover.typ],
+    [Table of contents], [Renders TOC entries up to depth 3], [pages/toc.typ],
+    [AI appendix], [Prints grouped AI prompt disclosures], [pages/appendixAi.typ],
+  ),
+  caption: [Example wide table in TypUDublin.],
+  kind: table,
+  supplement: [Table],
+)
+
+== Code Blocks
+Due to the inclusion of the `codly` packages, code blocks are improved from standard Typst ones. Certain syntax highlighting is supported, as well as line numbers. Refer to the #link("https://typst.app/universe/package/codly/", "Codly Docs") for how to use these fully.
+
+== Acronyms
+
+The custom version of Acrostiche developed for Typxidian and included in TypUDublin allows you to define acronyms and then consume them later, which hyperlink to the relevant abbreviation in the table of abbreviations.
+
+The first time an acronym appears, i.e. #ac("UI"), it appears fully and provides the acronym. In future occurrences, #ac("UI"), it uses just the acronym with a link to the table. If you create an array in the abbreviations, you can add support for acronym plurals, i.e. #acp("UI").
+
+The bullet pointing only occurs if it can match the words to the abbreviation, for example, #ac("2FA") will not bold as the word `two` can not be connected to the number `2`, the remainder of Acrostiche's features are supported.
+
 == No Numbered Equations
-Sometimes you have the need to write block equations with no numbering. TypXidian provides a built-in function
+Sometimes you have the need to write block equations with no numbering. TypUDublin provides a built-in function
 so that you don't have to manually set the numbering to `none` when writing such equations. All you have
 to do is call the `equation(content, numbering: false)` function. For instance,
 `#equation($ sigma(x) = frac(1,1 + exp(-x)) $)` will display:
@@ -250,12 +314,14 @@ The `paragraph(body, title: "", kind: "par", supplement: "Paragraph")` function 
 ```
 
 #paragraph(
-  [This is a paragraph. This is still a pargraph: #lorem(25). Still a paragraph!!],
+  [This is a paragraph. This is still a paragraph: #lorem(25) Still a paragraph!!],
   title: "LaTeX like paragraph",
 )
+#pagebreak()
+
 == Text and Math Callouts
 
-As anticipated, TypXidian is inspired by Obisidian. All main obsidian's callouts are available in the template
+As anticipated, TypUDublin's parent, Typxidian is inspired by Obsidian. The main Obsidian callouts are available in the template
 through the following functions: `info`, `danger`, `success`, `tip`, `faq`.
 
 All functions share the same signature, we will report only the `info` signature:
@@ -304,7 +370,7 @@ Below is a showcase of each callout:
   #lorem(10)
 ])
 
-TypXidian also provide math callouts, mimicing "Alice in a Differentiable Wonderland" boxes. Specifically,
+TypUDublin also provides math callouts, mimicking "Alice in a Differentiable Wonderland" boxes. Specifically,
 you can use: `definition`, `theorem` and `proof` callouts.
 The `definition` and `theorem` callouts share the same signature:
 ```typ
@@ -312,7 +378,7 @@ The `definition` and `theorem` callouts share the same signature:
   title: "Definition",
   supplement: [Definition.],
 ```
-while the proof box replaces the `title` parameter with the `of` parameter to reference the correspective theorem.
+while the proof box replaces the `title` parameter with the `of` parameter to reference the corresponding theorem.
 
 #definition([
   #lorem(20)
@@ -336,15 +402,8 @@ while the proof box replaces the `title` parameter with the `of` parameter to re
   [@th-1],
 )
 
-#show: appendix.with(
-  chapter-numbering: "A",
-  title: "Appendix A: Example",
-)
-
-With the appendix environment, one can add extra information regarding its work.
-
 == Appendix Subsection
-Depending on the `chapter_numbering` parameter, the appendix will show the relative numbering for sections automatically.
+Depending on the `chapter-numbering` parameter, the appendix will show the relative numbering for sections automatically.
 
 The environment also handles the template's page header so to avoid showing a ghost chapter in the title. This is visible on the top of the @appendix_subsubsection page, where an example of how to correctly show the numbering for subfigures is also given.
 
@@ -358,12 +417,12 @@ To correctly display a `#subfigure` so that its numbering is coherent with the c
 #subfigure(
   columns: (1fr, 2fr),
   figure(
-    image("assets/dog.jpg"),
+    image("./figures/dog.jpg"),
     caption: [This is a dog.]
   ),
   <dog>,
   figure(
-    image("assets/cat.jpg"),
+    image("./figures/cat.jpg"),
     caption: [This is a cat.]
   ),
   <cat>,

@@ -18,7 +18,7 @@
   acknowledgments-alignment: left + horizon,
   introduction: none,
   description: none,
-  declaration-signature: "../figures/signature.svg",
+  declaration-signature: "../figures/signature.png",
   show-declaration: true,
   keywords: (),
   abbreviations: (),
@@ -156,6 +156,11 @@
     })
   }
 
+  if abbreviations.len() > 0 {
+    // Populate acronym state once so #acr(...) and the index can read/update it safely.
+    init-acronyms(abbreviations)
+  }
+
   cover(
     title: title,
     subtitle: subtitle,
@@ -173,14 +178,14 @@
     thesis-type: thesis-type,
   )
 
-  pagebreak()
+  pagebreak(weak: true)
 
   if quote != none {
     counter(page).update(n => n - 1)
     set text(size: font-sizes.subsubsection)
     set page(margin: (right: 7em, left: 7em))
     align(center + horizon, [#quote])
-    pagebreak()
+    pagebreak(weak: true)
   }
 
   set page(numbering: "i", margin: margin)
@@ -198,7 +203,7 @@
     v(3em)
 
     align(abstract-alignment, text(size: font-sizes.body)[#abstract])
-    pagebreak()
+    pagebreak(weak: true)
   }
 
   if acknowledgments != none {
@@ -212,7 +217,7 @@
     v(3em)
 
     align(abstract-alignment, text(size: font-sizes.body)[#acknowledgments])
-    pagebreak()
+    pagebreak(weak: true)
   }
 
   if show-declaration {
@@ -248,7 +253,7 @@
       \
       Date: #date.display("[day]/[month]/[year]")
     ]
-    pagebreak()
+    pagebreak(weak: true)
   }
 
   if before-content != none {
@@ -270,7 +275,7 @@
     ])
     v(3em)
     introduction
-    pagebreak()
+    pagebreak(weak: true)
   }
 
   show heading.where(level: 1): set heading(supplement: chapter-supplement)
@@ -418,10 +423,10 @@
 
   if type(bib) == content {
     bib
-    pagebreak()
+    pagebreak(weak: true)
   } else {
     bibliography(bib, title: bib-title)
-    pagebreak()
+    pagebreak(weak: true)
   }
 
 

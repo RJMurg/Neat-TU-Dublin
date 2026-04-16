@@ -1,6 +1,7 @@
-# TypXidian
+# TypUDublin
 
-**TypXidian** is a highly customizable template for academic writing, thought for theses, disserations and reports.
+**TypUDublin** is a fork of Angelo Nazzaro's [Typxidian](https://github.com/angelonazzaro/typxidian) that has been modified to fit closer to TU Dublin's report format.
+
 It  is based, both on color palette and functionalities, on [Obsidian](https://obsidian.md/)
     and "Alice in a Differentiable Wonderland" by Simone Scardapane 
 

@@ -10,14 +10,20 @@
   body: 11pt,
 )
 
-// obsidian color palette
+// An extended version of TU Dublin's Colour Palette
 #let colors = (
-  purple: rgb("7e1dfb"),
-  darkgray: rgb("6d6e6d"),
-  cyan: rgb("53dfdd"),
-  red: rgb("fb464c"),
-  orange: rgb("e9973f"),
-  green: rgb("44cf6e"),
+  primary: rgb("004C6C"),
+  secondary: rgb("00A9B7"),
+  red: rgb("E94A41"),
+  orange: rgb("F0813C"),
+  pink: rgb("EB5793"),
+  teal: rgb("847EBB"),
+  purple: rgb("452A64"),
+  blue: rgb("2C55A2"),
+  yellow: rgb("E1E044"),
+  green: rgb("2CAD6E"),
+  grey: rgb("737373"),
+  darkgrey: rgb("313131"),
   info: (
     title: rgb("306bf6"),
     bg: rgb("eaf0fb"),
@@ -38,6 +44,10 @@
     title: rgb("d64043"),
     bg: rgb("fbecee"),
   ),
+  table : (
+    header: rgb("FFFFFF"),
+    row-alt: rgb("C7F4E9"),
+  )
 )
 
 // math equation block that can be used to display non-numbered equations
@@ -58,7 +68,7 @@
     pagebreak()
     pagebreak()
   } else {
-    // this is reserved for separting chapters
+    // this is reserved for separating chapters
     // we want at least one blank page between chapters
     // each chapter must start on an odd page
     // pagebreak()
@@ -245,7 +255,7 @@
     title,
     supplement,
     "definition",
-    colors.purple,
+    colors.primary,
   )
 }
 

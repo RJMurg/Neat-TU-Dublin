@@ -1,4 +1,11 @@
+# General
+.vscode
+.idea
+desktop.ini
 .DS_Store
-*.pdf
-*.tff
-*.otf
+
+# Deployment
+/dist
+
+# Rust
+/bundler/target
